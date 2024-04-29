@@ -40,6 +40,24 @@ app.post("/books", async (req, res) => {
   }
 });
 
+// PUT METHOD
+
+app.put("/books/:id", async (req, res) => {
+  console.log(req.params.id);
+  const { id } = req.params;
+  const { title, author } = req.body;
+  const updatedBook = await Books.findByIdAndUpdate(id, { title, author });
+  res.json(updatedBook);
+});
+
+// DELETE METHOD
+
+app.delete("/books/:id", async (req, res) => {
+  const { id } = req.params;
+  await Books.findByIdAndDelete(id);
+  res.send("Book deleted successfully");
+});
+
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 });
